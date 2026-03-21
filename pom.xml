@@ -6,7 +6,7 @@
 
     <groupId>moe.waifuvault</groupId>
     <artifactId>waifuvault-java-api</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <name>WaifuVault Java SDK</name>
@@ -134,6 +134,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
                 </configuration>
             </plugin>
         </plugins>
