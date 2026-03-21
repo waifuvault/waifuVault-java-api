@@ -89,7 +89,7 @@ Using a URL:
 ```java
 final WaifuFile resp = api.uploadFile(
     FileUpload.fromUrl("https://waifuvault.moe/assets/custom/images/08.png"));
-IO.println(resp.url());
+System.out.println(resp.url());
 ```
 
 Using a byte array:
@@ -97,7 +97,7 @@ Using a byte array:
 ```java
 final WaifuFile resp = api.uploadFile(
     FileUpload.fromBytes("someData".getBytes(), "aCoolFile.jpg"));
-IO.println(resp.url());
+System.out.println(resp.url());
 ```
 
 Using a file path:
@@ -105,7 +105,7 @@ Using a file path:
 ```java
 final WaifuFile resp = api.uploadFile(
     FileUpload.fromFile("./files/aCoolFile.jpg"));
-IO.println(resp.url());
+System.out.println(resp.url());
 ```
 
 ### Get File Info<a id="get-file-info"></a>
@@ -124,15 +124,15 @@ If you have a token from your upload, you can get file info. This returns the fo
 
 ```java
 final WaifuFile info = api.fileInfo("someToken");
-IO.println(info.retentionPeriodString()); // epoch as string
-IO.println(info.url());
+System.out.println(info.retentionPeriodString()); // epoch as string
+System.out.println(info.url());
 ```
 
 Human-readable timestamp:
 
 ```java
 final WaifuFile info = api.fileInfo("someToken", true);
-IO.println(info.retentionPeriodString()); // "328 days 18 hours 51 minutes 31 seconds"
+System.out.println(info.retentionPeriodString()); // "328 days 18 hours 51 minutes 31 seconds"
 ```
 
 ### Delete File<a id="delete-file"></a>
@@ -147,7 +147,7 @@ To delete a file, supply the token to `deleteFile`.
 
 ```java
 final GenericSuccess result = api.deleteFile("someToken");
-IO.println(result.success()); // true
+System.out.println(result.success()); // true
 ```
 
 ### Get File<a id="get-file"></a>
@@ -196,7 +196,7 @@ Set a password on a non-encrypted file:
 ```java
 final WaifuFile result = api.modifyEntry("token",
     new ModifyEntryPayload().password("apple"));
-IO.println(result.options().isProtected()); // true
+System.out.println(result.options().isProtected()); // true
 ```
 
 Change a password:
@@ -218,7 +218,7 @@ Decrypt a file:
 ```java
 final WaifuFile result = api.modifyEntry("token",
     new ModifyEntryPayload().password("").previousPassword("apple"));
-IO.println(result.options().isProtected()); // false
+System.out.println(result.options().isProtected()); // false
 ```
 
 ### Create Bucket<a id="create-bucket"></a>
@@ -227,7 +227,7 @@ Buckets are virtual collections linked to your IP and a token.
 
 ```java
 final WaifuBucket bucket = api.createBucket();
-IO.println(bucket.token());
+System.out.println(bucket.token());
 ```
 
 ### Get Bucket<a id="get-bucket"></a>
@@ -240,8 +240,8 @@ Get a bucket and all its files.
 
 ```java
 final WaifuBucket bucket = api.getBucket("someToken");
-IO.println(bucket.token());
-IO.println(bucket.files()); // list of files
+System.out.println(bucket.token());
+System.out.println(bucket.files()); // list of files
 ```
 
 ### Delete Bucket<a id="delete-bucket"></a>
@@ -254,7 +254,7 @@ Delete a bucket and all its files.
 
 ```java
 final GenericSuccess result = api.deleteBucket("someToken");
-IO.println(result.success()); // true
+System.out.println(result.success()); // true
 ```
 
 ### Create Album<a id="create-album"></a>
@@ -268,8 +268,8 @@ Albums are shareable collections of files within a bucket.
 
 ```java
 final WaifuAlbum album = api.createAlbum("myAlbum", "someBucketToken");
-IO.println(album.token());
-IO.println(album.name());
+System.out.println(album.token());
+System.out.println(album.name());
 ```
 
 ### Delete Album<a id="delete-album"></a>
@@ -292,8 +292,8 @@ Get an album and its files.
 
 ```java
 final WaifuAlbum album = api.getAlbum("someToken");
-IO.println(album.name());
-IO.println(album.files());
+System.out.println(album.name());
+System.out.println(album.files());
 ```
 
 ### Associate Files<a id="associate-files"></a>
@@ -302,7 +302,7 @@ Add files to an album. Files must be in the same bucket.
 
 ```java
 final WaifuAlbum album = api.associateFiles("albumToken", "fileToken1", "fileToken2");
-IO.println(album.files());
+System.out.println(album.files());
 ```
 
 ### Disassociate Files<a id="disassociate-files"></a>
@@ -311,7 +311,7 @@ Remove files from an album. Files remain in the bucket.
 
 ```java
 final WaifuAlbum album = api.disassociateFiles("albumToken", "fileToken1");
-IO.println(album.files());
+System.out.println(album.files());
 ```
 
 ### Share Album<a id="share-album"></a>
@@ -320,7 +320,7 @@ Share an album so its contents can be accessed from a public URL.
 
 ```java
 final String publicUrl = api.shareAlbum("privateAlbumToken");
-IO.println(publicUrl);
+System.out.println(publicUrl);
 ```
 
 ### Revoke Album<a id="revoke-album"></a>
@@ -329,7 +329,7 @@ Revoke public sharing of an album. The public URL is destroyed.
 
 ```java
 final GenericSuccess result = api.revokeAlbum("privateAlbumToken");
-IO.println(result.success()); // true
+System.out.println(result.success()); // true
 ```
 
 > **NOTE:** Once revoked, the URL is destroyed. If shared again later, a new URL will be issued.

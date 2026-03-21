@@ -1,11 +1,6 @@
 package moe.waifuvault;
 
-import moe.waifuvault.models.FileUpload;
-import moe.waifuvault.models.GenericSuccess;
-import moe.waifuvault.models.ModifyEntryPayload;
-import moe.waifuvault.models.WaifuAlbum;
-import moe.waifuvault.models.WaifuBucket;
-import moe.waifuvault.models.WaifuFile;
+import moe.waifuvault.models.*;
 
 import java.net.http.HttpClient;
 
@@ -17,7 +12,7 @@ import java.net.http.HttpClient;
  * <pre>{@code
  * try (final Waifuvault api = new Waifuvault()) {
  *     final WaifuFile file = api.uploadFile(FileUpload.fromUrl("https://example.com/image.png"));
- *     IO.println(file.url());
+ *     System.out.println(file.url());
  * }
  * }</pre>
  *
