@@ -16,7 +16,9 @@ public record WaifuResponseOptions(
 ) {
 
     /**
-     * @return true if this file is password-protected/encrypted
+     * Check if this file is password-protected/encrypted.
+     *
+     * @return true if this file is protected
      */
     public boolean isProtected() {
         return fileProtected;

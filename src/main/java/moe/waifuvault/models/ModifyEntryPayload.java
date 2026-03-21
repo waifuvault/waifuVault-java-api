@@ -8,6 +8,10 @@ package moe.waifuvault.models;
  */
 public class ModifyEntryPayload {
 
+    /** Create a new empty ModifyEntryPayload. */
+    public ModifyEntryPayload() {
+    }
+
     private String password;
     private String previousPassword;
     private String customExpiry;
