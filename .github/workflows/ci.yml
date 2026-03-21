@@ -19,4 +19,4 @@ jobs:
           cache: 'maven'
 
       - name: Test
-        run: ./mvnw verify -q -Dgpg.skip=true -Dsurefire.useFile=false
+        run: ./mvnw verify --no-transfer-progress -Dgpg.skip=true -Dsurefire.useFile=false
