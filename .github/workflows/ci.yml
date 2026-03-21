@@ -16,6 +16,7 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+          cache: 'maven'
 
-      - name: Build and test
-        run: ./mvnw clean verify -Dgpg.skip=true
+      - name: Test
+        run: ./mvnw verify -q -Dgpg.skip=true -Dsurefire.useFile=false
