@@ -182,12 +182,20 @@ public class FileUpload {
         return this;
     }
 
-    /** @return the upload type */
+    /**
+     * Get the upload type.
+     *
+     * @return the upload type
+     */
     public Type getType() {
         return type;
     }
 
-    /** @return true if this is a file upload (not a URL upload) */
+    /**
+     * Check if this is a file upload (not a URL upload).
+     *
+     * @return true if this is a file upload
+     */
     public boolean isFileUpload() {
         return type != Type.URL;
     }
@@ -212,42 +220,74 @@ public class FileUpload {
         throw new IllegalStateException("Not a file upload");
     }
 
-    /** @return the filename for this upload */
+    /**
+     * Get the filename for this upload.
+     *
+     * @return the filename
+     */
     public String getFilename() {
         return filename;
     }
 
-    /** @return the URL for URL-based uploads */
+    /**
+     * Get the URL for URL-based uploads.
+     *
+     * @return the URL
+     */
     public String getUrl() {
         return url;
     }
 
-    /** @return the expiration string, or null if not set */
+    /**
+     * Get the expiration string.
+     *
+     * @return the expiration string, or null if not set
+     */
     public String getExpires() {
         return expires;
     }
 
-    /** @return whether to hide the filename, or null if not set */
+    /**
+     * Get whether to hide the filename.
+     *
+     * @return whether to hide the filename, or null if not set
+     */
     public Boolean getHideFilename() {
         return hideFilename;
     }
 
-    /** @return the encryption password, or null if not set */
+    /**
+     * Get the encryption password.
+     *
+     * @return the encryption password, or null if not set
+     */
     public String getPassword() {
         return password;
     }
 
-    /** @return whether this is a one-time download, or null if not set */
+    /**
+     * Get whether this is a one-time download.
+     *
+     * @return whether this is a one-time download, or null if not set
+     */
     public Boolean getOneTimeDownload() {
         return oneTimeDownload;
     }
 
-    /** @return the bucket token, or null if not set */
+    /**
+     * Get the bucket token.
+     *
+     * @return the bucket token, or null if not set
+     */
     public String getBucketToken() {
         return bucketToken;
     }
 
-    /** @return the client IP to forward, or null if not set */
+    /**
+     * Get the client IP to forward.
+     *
+     * @return the client IP, or null if not set
+     */
     public String getClientIP() {
         return clientIP;
     }

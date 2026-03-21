@@ -5,7 +5,10 @@ package moe.waifuvault;
  */
 public class WaifuException extends RuntimeException {
 
+    /** The HTTP status code. */
     private final int status;
+
+    /** The HTTP status name. */
     private final String name;
 
     /**
@@ -22,14 +25,18 @@ public class WaifuException extends RuntimeException {
     }
 
     /**
-     * @return the HTTP status code of the error
+     * Get the HTTP status code of the error.
+     *
+     * @return the HTTP status code
      */
     public int getStatus() {
         return status;
     }
 
     /**
-     * @return the name of the HTTP status
+     * Get the name of the HTTP status.
+     *
+     * @return the HTTP status name
      */
     public String getName() {
         return name;

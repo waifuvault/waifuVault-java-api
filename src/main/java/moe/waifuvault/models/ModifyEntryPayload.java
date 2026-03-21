@@ -8,6 +8,10 @@ package moe.waifuvault.models;
  */
 public class ModifyEntryPayload {
 
+    /** Create a new empty ModifyEntryPayload. */
+    public ModifyEntryPayload() {
+    }
+
     private String password;
     private String previousPassword;
     private String customExpiry;
@@ -61,22 +65,38 @@ public class ModifyEntryPayload {
         return this;
     }
 
-    /** @return the new password, or null if not set */
+    /**
+     * Get the new password.
+     *
+     * @return the new password, or null if not set
+     */
     public String getPassword() {
         return password;
     }
 
-    /** @return the previous password, or null if not set */
+    /**
+     * Get the previous password.
+     *
+     * @return the previous password, or null if not set
+     */
     public String getPreviousPassword() {
         return previousPassword;
     }
 
-    /** @return the custom expiry, or null if not set */
+    /**
+     * Get the custom expiry.
+     *
+     * @return the custom expiry, or null if not set
+     */
     public String getCustomExpiry() {
         return customExpiry;
     }
 
-    /** @return whether to hide the filename, or null if not set */
+    /**
+     * Get whether to hide the filename.
+     *
+     * @return whether to hide the filename, or null if not set
+     */
     public Boolean getHideFilename() {
         return hideFilename;
     }
