@@ -28,6 +28,18 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Update README version
+        if: steps.version.outputs.changed == 'true'
+        run: |
+          VERSION=${{ steps.version.outputs.current }}
+          sed -i "s|<version>[^<]*</version>|<version>${VERSION}</version>|g" README.md
+          sed -i "s|waifuvault-java-api:[^']*|waifuvault-java-api:${VERSION}|g" README.md
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add README.md
+          git commit -m "update README to v${VERSION}" || true
+          git push
+
       - name: Create release
         if: steps.version.outputs.changed == 'true'
         run: gh release create "v${{ steps.version.outputs.current }}" --generate-notes --title "v${{ steps.version.outputs.current }}"
