@@ -6,7 +6,7 @@
 
     <groupId>moe.waifuvault</groupId>
     <artifactId>waifuvault-java-api</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <packaging>jar</packaging>
 
     <name>WaifuVault Java SDK</name>
@@ -22,8 +22,10 @@
 
     <developers>
         <developer>
-            <name>WaifuVault</name>
+            <name>Victoria</name>
             <url>https://waifuvault.moe</url>
+            <email>victoria@waifuvault.moe</email>
+            <organization>WaifuVault</organization>
         </developer>
     </developers>
 
