@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  workflow_run:
+    workflows: [ Publish to Maven Central ]
+    types: [ completed ]
+
+jobs:
+  release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 2
+
+      - name: Check version change
+        id: version
+        run: |
+          CURRENT=$(grep -m1 '<version>' pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/')
+          git show HEAD~1:pom.xml > /tmp/old-pom.xml 2>/dev/null || echo "<version>0.0.0</version>" > /tmp/old-pom.xml
+          PREVIOUS=$(grep -m1 '<version>' /tmp/old-pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/')
+          echo "current=$CURRENT" >> "$GITHUB_OUTPUT"
+          echo "previous=$PREVIOUS" >> "$GITHUB_OUTPUT"
+          if [ "$CURRENT" != "$PREVIOUS" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create release
+        if: steps.version.outputs.changed == 'true'
+        run: gh release create "v${{ steps.version.outputs.current }}" --generate-notes --title "v${{ steps.version.outputs.current }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
