@@ -6,7 +6,7 @@
 
     <groupId>moe.waifuvault</groupId>
     <artifactId>waifuvault-java-api</artifactId>
-    <version>1.0.4</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
 
     <name>WaifuVault Java SDK</name>
