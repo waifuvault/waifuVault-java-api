@@ -11,7 +11,7 @@ import java.net.http.HttpClient;
  * Implements {@link AutoCloseable} so the underlying HTTP client is properly released.
  * <pre>{@code
  * try (final Waifuvault api = new Waifuvault()) {
- *     final WaifuFile file = api.uploadFile(FileUpload.fromUrl("https://example.com/image.png"));
+ *     final WaifuFile file = api.uploadFile(FileUpload.fromFile("./image.png"));
  *     System.out.println(file.url());
  * }
  * }</pre>
@@ -78,7 +78,6 @@ public class Waifuvault implements AutoCloseable {
      * @throws WaifuException if the upload fails
      * @see FileUpload#fromFile(String)
      * @see FileUpload#fromBytes(byte[], String)
-     * @see FileUpload#fromUrl(String)
      */
     public WaifuFile uploadFile(final FileUpload options) {
         return fileApi.uploadFile(options);

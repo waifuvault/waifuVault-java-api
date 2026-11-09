@@ -6,7 +6,6 @@ import moe.waifuvault.models.ModifyEntryPayload;
 import moe.waifuvault.models.WaifuFile;
 
 import java.net.URI;
-import java.net.URLEncoder;
 import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -41,20 +40,10 @@ class FileApi extends BaseApi {
             reqBuilder.header("X-Real-IP", options.getClientIP());
         }
 
-        if (options.isFileUpload()) {
-            final String boundary = UUID.randomUUID().toString();
-            reqBuilder.header("Content-Type", "multipart/form-data; boundary=" + boundary);
-            reqBuilder.method("PUT", buildMultipartBody(boundary, options.getFileBytes(),
-                    options.getFilename(), options.getPassword()));
-        } else {
-            final StringBuilder formBody = new StringBuilder();
-            formBody.append("url=").append(URLEncoder.encode(options.getUrl(), StandardCharsets.UTF_8));
-            if (options.getPassword() != null) {
-                formBody.append("&password=").append(URLEncoder.encode(options.getPassword(), StandardCharsets.UTF_8));
-            }
-            reqBuilder.header("Content-Type", "application/x-www-form-urlencoded");
-            reqBuilder.method("PUT", HttpRequest.BodyPublishers.ofString(formBody.toString()));
-        }
+        final String boundary = UUID.randomUUID().toString();
+        reqBuilder.header("Content-Type", "multipart/form-data; boundary=" + boundary);
+        reqBuilder.method("PUT", buildMultipartBody(boundary, options.getFileBytes(),
+                options.getFilename(), options.getPassword()));
 
         return sendJsonRequest(reqBuilder.build(), WaifuFile.class);
     }

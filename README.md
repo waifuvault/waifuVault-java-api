@@ -72,7 +72,6 @@ To upload a file, use the `uploadFile` method. Create an upload using one of the
 | `FileUpload.fromFile(File file)`             | Upload a file from a `File` object          |
 | `FileUpload.fromBytes(byte[], String)`       | Upload from a byte array with a filename    |
 | `FileUpload.fromStream(InputStream, String)` | Upload from an input stream with a filename |
-| `FileUpload.fromUrl(String url)`             | Upload a file from a URL on the internet    |
 
 Optional settings can be chained:
 
@@ -84,16 +83,6 @@ Optional settings can be chained:
 | `.oneTimeDownload(boolean)` | `boolean` | If true, the file is deleted after first access                   |
 | `.bucketToken(String)`      | `String`  | Associate the file with a bucket                                  |
 | `.clientIP(String)`         | `String`  | Forward a custom client IP                                        |
-
-Using a URL:
-
-```java
-final WaifuFile resp = api.uploadFile(
-        FileUpload.fromUrl("https://waifuvault.moe/assets/custom/images/08.png"));
-System.out.
-
-println(resp.url());
-```
 
 Using a byte array:
 
