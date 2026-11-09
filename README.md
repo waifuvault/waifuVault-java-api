@@ -12,14 +12,14 @@ with [waifuvault.moe](https://waifuvault.moe/). Contains a full up to date API f
 <dependency>
     <groupId>moe.waifuvault</groupId>
     <artifactId>waifuvault-java-api</artifactId>
-    <version>1.0.4</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-implementation 'moe.waifuvault:waifuvault-java-api:1.0.4'
+implementation 'moe.waifuvault:waifuvault-java-api:1.1.0'
 ```
 
 ## Usage
