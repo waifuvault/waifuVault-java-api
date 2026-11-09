@@ -75,24 +75,10 @@ class WaifuvaultTest {
         }
 
         @Test
-        void shouldUploadFromUrl() throws Exception {
-            doReturn(MockResponses.json(200, MockData.FILE_UNPROTECTED)).when(mockClient).send(any(), any());
-
-            final WaifuFile result = api.uploadFile(
-                    FileUpload.fromUrl("https://example.com/file.png"));
-
-            assertEquals(MockData.TOKEN, result.token());
-            final HttpRequest req = captureRequest();
-            assertEquals("PUT", req.method());
-            assertTrue(req.headers().firstValue("Content-Type")
-                    .orElse("").contains("application/x-www-form-urlencoded"));
-        }
-
-        @Test
         void shouldIncludeQueryParams() throws Exception {
             doReturn(MockResponses.json(200, MockData.FILE_PROTECTED)).when(mockClient).send(any(), any());
 
-            api.uploadFile(FileUpload.fromUrl("https://example.com/file.png")
+            api.uploadFile(FileUpload.fromBytes("data".getBytes(), "file.txt")
                     .password("foo").hideFilename(true).expires("2d"));
 
             final String uri = captureRequest().uri().toString();
@@ -153,7 +139,7 @@ class WaifuvaultTest {
             doReturn(MockResponses.json(400, MockData.ERROR_BAD_REQUEST)).when(mockClient).send(any(), any());
 
             assertThrows(WaifuException.class, () ->
-                    api.uploadFile(FileUpload.fromUrl("https://example.com")));
+                    api.uploadFile(FileUpload.fromBytes("data".getBytes(), "file.txt")));
         }
 
         @Nested
@@ -172,18 +158,6 @@ class WaifuvaultTest {
             }
 
             @Test
-            void shouldSendUrlUploadWithClientIP() throws Exception {
-                doReturn(MockResponses.json(200, MockData.FILE_UNPROTECTED)).when(mockClient).send(any(), any());
-
-                api.uploadFile(FileUpload.fromUrl("https://example.com")
-                        .clientIP("10.0.0.1"));
-
-                final HttpRequest req = captureRequest();
-                assertEquals("10.0.0.1", req.headers().firstValue("X-Forwarded-For").orElse(null));
-                assertEquals("10.0.0.1", req.headers().firstValue("X-Real-IP").orElse(null));
-            }
-
-            @Test
             void shouldHandleIPv6() throws Exception {
                 doReturn(MockResponses.json(200, MockData.FILE_UNPROTECTED)).when(mockClient).send(any(), any());
 
@@ -199,7 +173,7 @@ class WaifuvaultTest {
             void shouldSendClientIPWithOtherParams() throws Exception {
                 doReturn(MockResponses.json(200, MockData.FILE_PROTECTED)).when(mockClient).send(any(), any());
 
-                api.uploadFile(FileUpload.fromUrl("https://example.com")
+                api.uploadFile(FileUpload.fromBytes("data".getBytes(), "file.txt")
                         .password("secret").expires("1d").hideFilename(true)
                         .clientIP("172.16.0.1"));
 

@@ -8,14 +8,13 @@ import java.io.InputStream;
 import java.nio.file.Files;
 
 /**
- * Options for uploading a file or URL to WaifuVault.
+ * Options for uploading a file to WaifuVault.
  * <p>
  * Use the static factory methods to create an instance:
  * <ul>
  *   <li>{@link #fromFile(File)} or {@link #fromFile(String)} - upload a file from disk</li>
  *   <li>{@link #fromBytes(byte[], String)} - upload a file from a byte array</li>
  *   <li>{@link #fromStream(InputStream, String)} - upload a file from an input stream</li>
- *   <li>{@link #fromUrl(String)} - upload a file from a URL</li>
  * </ul>
  * Then chain optional settings using the builder methods.
  */
@@ -28,16 +27,13 @@ public class FileUpload {
         /** Upload from a file path on disk. */
         FILE_PATH,
         /** Upload from raw bytes. */
-        FILE_BYTES,
-        /** Upload from a URL. */
-        URL
+        FILE_BYTES
     }
 
     private Type type;
     private File file;
     private byte[] bytes;
     private String filename;
-    private String url;
     private String expires;
     private Boolean hideFilename;
     private String password;
@@ -100,19 +96,6 @@ public class FileUpload {
         } catch (final IOException e) {
             throw new WaifuException(0, "IO Error", "Failed to read input stream: " + e.getMessage());
         }
-    }
-
-    /**
-     * Create an upload from a URL to a file on the internet.
-     *
-     * @param url the URL to the file
-     * @return a new FileUpload instance
-     */
-    public static FileUpload fromUrl(final String url) {
-        final FileUpload fu = new FileUpload();
-        fu.type = Type.URL;
-        fu.url = url;
-        return fu;
     }
 
     /**
@@ -192,15 +175,6 @@ public class FileUpload {
     }
 
     /**
-     * Check if this is a file upload (not a URL upload).
-     *
-     * @return true if this is a file upload
-     */
-    public boolean isFileUpload() {
-        return type != Type.URL;
-    }
-
-    /**
      * Read and return the file bytes. For file path uploads, the file is read from disk.
      *
      * @return the file data as a byte array
@@ -210,14 +184,12 @@ public class FileUpload {
         if (type == Type.FILE_BYTES) {
             return bytes;
         }
-        if (type == Type.FILE_PATH) {
-            try {
-                return Files.readAllBytes(file.toPath());
-            } catch (final IOException e) {
-                throw new WaifuException(0, "IO Error", "Failed to read file: " + e.getMessage());
-            }
+
+        try {
+            return Files.readAllBytes(file.toPath());
+        } catch (final IOException e) {
+            throw new WaifuException(0, "IO Error", "Failed to read file: " + e.getMessage());
         }
-        throw new IllegalStateException("Not a file upload");
     }
 
     /**
@@ -227,15 +199,6 @@ public class FileUpload {
      */
     public String getFilename() {
         return filename;
-    }
-
-    /**
-     * Get the URL for URL-based uploads.
-     *
-     * @return the URL
-     */
-    public String getUrl() {
-        return url;
     }
 
     /**
